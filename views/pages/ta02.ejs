@@ -12,7 +12,29 @@
         <h1>
           <%= title %>
         </h1>
-        <p>This is the placeholder for Team Activity 02</p>
+        <form method="POST" action="/ta02/addUser">
+
+          <label for="name">Add User</label>
+          <input type="text" name="name" id="name">
+
+          <button type="submit">Submit</button>
+        </form>
+        <p class="error"> <%= typeof(errorMsg1 !== undefined) ? errorMsg1 : ""%> </p>
+        <h3>List of Users</h3>
+        <section class="names">
+          <ul class="users">
+          <% names.forEach(name => { %>
+            <li><%= name %></li>
+          <% }) %> 
+        </ul>
+        </section>
+        <p class="error"> <%= typeof(errorMsg !== undefined) ? errorMsg : ""%> </p>
+        <form method="POST" action="/ta02/remUser">
+          <label for="name">Remove User</label>
+          <input type="text" name="remName" id="remName">
+
+          <button type="submit">Submit</button>
+        </form>
       </div>
     </div>
     <div class="container">

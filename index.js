@@ -34,10 +34,6 @@ app
   //.engine('hbs', expressHbs({layoutsDir: 'views/layouts/', defaultLayout: 'main-layout', extname: 'hbs'})) // For handlebars
   //.set('view engine', 'hbs')
   .use(bodyParser({ extended: false })) // For parsing the body of a POST
-  .use('/ta01', ta01Routes)
-  .use('/ta02', ta02Routes)
-  .use('/ta03', ta03Routes)
-  .use('/ta04', ta04Routes)
   .get('/', (req, res, next) => {
     // This is the primary index, always handled last.
     res.render('pages/index', {
@@ -45,6 +41,10 @@ app
       path: '/',
     });
   })
+  .use('/ta01', ta01Routes)
+  .use('/ta02', ta02Routes)
+  .use('/ta03', ta03Routes)
+  .use('/ta04', ta04Routes)
   .use((req, res, next) => {
     // 404 page
     res.render('pages/404', { title: '404 - Page Not Found', path: req.url });

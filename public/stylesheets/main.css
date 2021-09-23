@@ -41,3 +41,15 @@
   width: 5rem;
   height: 5rem;
 }
+
+form input, form button {
+  color: black;
+}
+
+ul.users {
+  text-align: left;
+}
+
+.error {
+  color: red;
+}
