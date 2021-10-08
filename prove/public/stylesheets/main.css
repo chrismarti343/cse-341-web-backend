@@ -1,0 +1,118 @@
+.jumbotron {
+  background: #0065bd;
+  color: white;
+  padding-bottom: 80px;
+}
+
+.jumbotron .btn-primary {
+  background: #845ac7;
+  border-color: #845ac7;
+}
+
+.jumbotron .btn-primary:hover {
+  background: #7646c1;
+}
+
+.jumbotron p {
+  color: #d9ccee;
+  max-width: 75%;
+  margin: 1em auto 2em;
+}
+
+.navbar + .jumbotron {
+  margin-top: -20px;
+}
+
+.jumbotron .lang-logo {
+  display: block;
+  background: #b01302;
+  border-radius: 50%;
+  overflow: hidden;
+  width: 100px;
+  height: 100px;
+  margin: auto;
+  border: 2px solid white;
+}
+.jumbotron .lang-logo img {
+  max-width: 100%;
+}
+
+.logo {
+  width: 5rem;
+  height: 5rem;
+}
+
+form input, form button {
+  color: black;
+}
+
+ul.users {
+  text-align: left;
+}
+
+.error {
+  color: red;
+}
+
+.left-align {
+  text-align: left;
+  padding-left: 0;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  color: black;
+}
+
+.grid-container p {
+  color: black;
+  margin: 0;
+  text-align: left;
+  margin-bottom: 15px;
+}
+.grid-container h1 {
+  font-size: 2em;
+}
+
+div.card {
+  background-color: white;
+  border-radius: 5px;
+  width: fit-content;
+  margin: 10px;
+  padding: 20px;
+}
+
+div.card:hover {
+  box-shadow: rgba(0, 0, 0, 0.3) 10px 10px 5px;
+}
+
+div.card img {
+  max-width: 15em;
+  margin-bottom: 20px;
+}
+
+form.search {
+  display: flex;
+}
+
+form.search, form.search label {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+form.search input {
+  width: 85%;
+}
+form.search button {
+  width: 10%;
+}
+
+.btn {
+  color: white;
+}
+
+.btn:hover, .btn:active {
+  color: #ccc;
+}

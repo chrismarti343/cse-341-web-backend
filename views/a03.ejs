@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ./includes/header.ejs %>
+</head>
+<body>
+    
+  <% include ./includes/nav.ejs %>
+    <div class="jumbotron text-center">
+        <form class="search" action="/a03/search" method="GET">
+          <label for="tag">
+            <input type="text" name="tag" id="tag" placeholder="Search...">
+            <button type="submit">Go</button>
+          </label>
+        </form>
+        <div class="container">
+    
+          <h1>
+            <%= title %>
+          </h1>
+          <div class="grid-container">
+            <% if (products.length > 0) { %>
+    
+            <% for (let product of products) {  %>
+    
+            <div class="card">
+              <h1><%= product.name %> </h1>
+              <img src="<%= product.imageUrl%>">
+              <p><strong>$<%= product.price%></strong></p>
+              <p><%= product.description%></p>
+    
+              <p class="left-align">
+                <strong>Tags:</strong> <% product.tags.forEach(tag => { %>
+                <%=tag%>,
+                <% }) %>
+              
+              </p>
+
+              <p><strong>Id:</strong> <%= product.id%></p>
+            </div>
+    
+            <% } } else { %>
+            <h1>No products found.</h1>
+            <% } %>
+          </div>
+          <a class="btn" href="./"><- View All Products</a>
+        </div>
+      </div>
+</body>
+</html>
