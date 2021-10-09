@@ -11,9 +11,11 @@
     "test": "node test.js"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "ejs": "^2.7.4",
     "express": "^4.17.1",
     "express-handlebars": "^3.0.2",
+    "mongoose": "^6.0.10",
     "node-fetch": "^3.0.0",
     "nodemon": "^2.0.12"
   },

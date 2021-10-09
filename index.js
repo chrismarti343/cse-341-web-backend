@@ -15,8 +15,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const PORT = process.env.PORT || 5000; // So we can run on heroku || (OR) localhost:5000
-
+const cors = require('cors') // Place this with other requires (like 'path' and 'express')
 const app = express();
+var mongoose = require('mongoose');
 
 // Route setup. You can implement more in the future!
 const ta01Routes = require('./routes/ta01');
@@ -26,30 +27,55 @@ const ta04Routes = require('./routes/ta04');
 
 const a03Prove = require('./prove/a03');
 
+const corsOptions = {
+  origin: "https://cse341-testing-chris.herokuapp.com/",
+  optionsSuccessStatus: 200
+};
+
 app
-  .use(express.static(path.join(__dirname, 'public')))
-  .set('views', path.join(__dirname, 'views'))
-  .set('view engine', 'ejs')
-  // For view engine as Pug
-  //.set('view engine', 'pug') // For view engine as PUG.
-  // For view engine as hbs (Handlebars)
-  //.engine('hbs', expressHbs({layoutsDir: 'views/layouts/', defaultLayout: 'main-layout', extname: 'hbs'})) // For handlebars
-  //.set('view engine', 'hbs')
-  .use(bodyParser({ extended: false })) // For parsing the body of a POST
-  .get('/', (req, res, next) => {
-    // This is the primary index, always handled last.
-    res.render('pages/index', {
-      title: 'Welcome to my CSE341 repo',
-      path: '/',
-    });
+
+.use(cors(corsOptions))
+.use(express.static(path.join(__dirname, 'public')))
+.set('views', path.join(__dirname, 'views'))
+.set('view engine', 'ejs')
+// For view engine as Pug
+//.set('view engine', 'pug') // For view engine as PUG.
+// For view engine as hbs (Handlebars)
+//.engine('hbs', expressHbs({layoutsDir: 'views/layouts/', defaultLayout: 'main-layout', extname: 'hbs'})) // For handlebars
+//.set('view engine', 'hbs')
+.use(bodyParser({ extended: false })) // For parsing the body of a POST
+.get('/', (req, res, next) => {
+  // This is the primary index, always handled last.
+  res.render('pages/index', {
+    title: 'Welcome to my CSE341 repo',
+    path: '/',
+  });
+})
+.use('/ta01', ta01Routes)
+.use('/ta02', ta02Routes)
+.use('/ta03', ta03Routes)
+.use('/ta04', ta04Routes)
+.use('/a03', a03Prove)
+.use((req, res, next) => {
+  // 404 page
+  res.render('pages/404', { title: '404 - Page Not Found', path: req.url });
+})
+.listen(PORT, () => console.log(`Listening on ${PORT}`));
+
+const options = {
+    useUnifiedTopology: true
+};
+
+const MONGODB_URL = process.env.MONGODB_URL || "mongodb+srv://chris:00yzwBxJUnQr2Il2@cluster0.1v6y8.mongodb.net/test?retryWrites=true&w=majority"
+
+
+  mongoose.connect(
+    MONGODB_URL, options
+  )
+  .then(result => {
+    console.log('It is working') // This should be your user handling code implement following the course videos
+    
   })
-  .use('/ta01', ta01Routes)
-  .use('/ta02', ta02Routes)
-  .use('/ta03', ta03Routes)
-  .use('/ta04', ta04Routes)
-  .use('/a03', a03Prove)
-  .use((req, res, next) => {
-    // 404 page
-    res.render('pages/404', { title: '404 - Page Not Found', path: req.url });
-  })
-  .listen(PORT, () => console.log(`Listening on ${PORT}`));
+  .catch(err => {
+    console.log(err);
+  });

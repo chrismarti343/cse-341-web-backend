@@ -2,6 +2,8 @@
 const express = require('express');
 const router = express.Router();
 
+
+
 router.get('/', (req, res, next) => {
   res.render('pages/ta04', {
     title: 'Team Activity 04',
@@ -10,5 +12,7 @@ router.get('/', (req, res, next) => {
     contentCSS: true, // For HBS
   });
 });
+
+
 
 module.exports = router;
