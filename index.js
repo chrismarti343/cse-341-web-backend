@@ -56,26 +56,59 @@ app
 .use('/ta03', ta03Routes)
 .use('/ta04', ta04Routes)
 .use('/a03', a03Prove)
+
+
+
 .use((req, res, next) => {
   // 404 page
   res.render('pages/404', { title: '404 - Page Not Found', path: req.url });
 })
-.listen(PORT, () => console.log(`Listening on ${PORT}`));
-
-const options = {
-    useUnifiedTopology: true
-};
-
-const MONGODB_URL = process.env.MONGODB_URL || "mongodb+srv://chris:00yzwBxJUnQr2Il2@cluster0.1v6y8.mongodb.net/test?retryWrites=true&w=majority"
 
 
-  mongoose.connect(
-    MONGODB_URL, options
+const User = require('./prove04/models/user');
+
+
+app.set('view engine', 'ejs');
+app.set('views', 'views');
+
+const adminRoutes = require('./prove04/routes/admin');
+const shopRoutes = require('./prove04/routes/shop');
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use((req, res, next) => {
+  User.findById('6161f7521f77ce5094e238c9')
+    .then(user => {
+      req.user = user;
+      next();
+    })
+    .catch(err => console.log(err));
+});
+
+app.use('/admin', adminRoutes);
+app.use(shopRoutes);
+
+
+mongoose
+  .connect(
+    'mongodb+srv://chris:00yzwBxJUnQr2Il2@cluster0.1v6y8.mongodb.net/shop?retryWrites=true&w=majority'
   )
   .then(result => {
-    console.log('It is working') // This should be your user handling code implement following the course videos
-    
-  })
-  .catch(err => {
-    console.log(err);
-  });
+    User.findOne().then(user => {
+        if (!user) {
+          const user = new User({
+            name: 'Max',
+            email: 'max@gmail.com',
+            cart: {
+              items: []
+            }
+          });
+          user.save();
+        }
+      });
+      app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+    })
+    .catch(err => {
+      console.log(err);
+    });
