@@ -25,7 +25,10 @@ const ta02Routes = require('./routes/ta02');
 const ta03Routes = require('./routes/ta03');
 const ta04Routes = require('./routes/ta04');
 
+
 const a03Prove = require('./prove/a03');
+const a04Prove = require('./prove04/app');
+
 
 const corsOptions = {
   origin: "https://cse341-testing-chris.herokuapp.com/",
@@ -56,6 +59,7 @@ app
 .use('/ta03', ta03Routes)
 .use('/ta04', ta04Routes)
 .use('/a03', a03Prove)
+.use('/a04', a04Prove)
 
 
 
@@ -71,8 +75,7 @@ const User = require('./prove04/models/user');
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
-const adminRoutes = require('./prove04/routes/admin');
-const shopRoutes = require('./prove04/routes/shop');
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -86,8 +89,6 @@ app.use((req, res, next) => {
     .catch(err => console.log(err));
 });
 
-app.use('/admin', adminRoutes);
-app.use(shopRoutes);
 
 
 mongoose
